@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
@@ -73,8 +74,23 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
 
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
+    //text dimension
+    implementation("com.intuit.sdp:sdp-android:1.1.0")
+    implementation("com.intuit.ssp:ssp-android:1.1.0")
 
+    //image slideshow
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
+
+    //Room database
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1-Beta")
 }
 
 

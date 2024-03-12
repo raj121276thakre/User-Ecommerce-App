@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_margin="5dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/productCoverIV"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginStart="4dp"
+                tools:srcCompat="@tools:sample/avatars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <TextView
+                android:id="@+id/productNametxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="product name"
+                android:layout_marginStart="12dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/productSptxt"
+                app:layout_constraintStart_toEndOf="@+id/productCoverIV"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/productSptxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="selling price"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productCoverIV" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
