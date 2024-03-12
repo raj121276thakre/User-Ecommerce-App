@@ -37,6 +37,7 @@ class CategoryProductAdapter(var context: Context, val list: ArrayList<AddProduc
         holder.binding.productNametxt.text = data.productName
         holder.binding.productSptxt.text = "₹" + data.productSp
 
+
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)
             intent.putExtra("id",list[position].productId)

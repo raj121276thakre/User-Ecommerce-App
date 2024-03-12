@@ -11,6 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content">
 
 
@@ -24,13 +25,14 @@
 
         <TextView
             android:id="@+id/cartProductName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginStart="12dp"
+            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/cartProductSp"
+            app:layout_constraintEnd_toStartOf="@+id/deleteCartIV"
             app:layout_constraintStart_toEndOf="@+id/cartProductIV"
             app:layout_constraintTop_toTopOf="@+id/cartProductIV" />
 
@@ -45,6 +47,15 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/cartProductIV"
             app:layout_constraintStart_toEndOf="@+id/cartProductIV" />
+
+        <ImageView
+            android:id="@+id/deleteCartIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

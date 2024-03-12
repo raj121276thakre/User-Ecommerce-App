@@ -37,6 +37,7 @@ class ProductAdapter(var context: Context, val list: ArrayList<AddProductModel> 
         holder.binding.btnProductSp.text = "₹" + data.productSp
 
 
+
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)
             intent.putExtra("id",list[position].productId)
