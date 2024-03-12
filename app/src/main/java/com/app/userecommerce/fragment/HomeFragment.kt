@@ -31,7 +31,8 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        setStatusBarColor()
+
+
 
         getCategoryData()
         getProductsData()
@@ -87,15 +88,15 @@ class HomeFragment : Fragment() {
     }
 
     //status bar color
-    private fun setStatusBarColor() {
-        activity?.window?.apply {
-            val statusBarColors = ContextCompat.getColor(requireContext(), R.color.yellow)
-            statusBarColor = statusBarColors
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
-    }
+//    private fun setStatusBarColor() {
+//        activity?.window?.apply {
+//            val statusBarColors = ContextCompat.getColor(requireContext(), R.color.yellow)
+//            statusBarColor = statusBarColors
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//            }
+//        }
+//    }
 
 
 }
