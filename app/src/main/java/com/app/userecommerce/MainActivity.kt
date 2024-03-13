@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setStatusBarColor()
 
-
-        if (FirebaseAuth.getInstance().currentUser == null){
+        if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
@@ -40,11 +40,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomBar.setupWithNavController(popupMenu.menu, navController)
 
         binding.bottomBar.onItemSelected = {
-            when(it){
-                0->{
+            when (it) {
+                0 -> {
                     i = 0;
                     navController.navigate(R.id.homeFragment)
                 }
+
                 1 -> i = 1
                 2 -> i = 2
             }
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 //            ) {
 //                title = when (destination.id) {
 //                    R.id.cartFragment -> "My Cart"
-//                    R.id.moreFragment -> "My Dashboard"
+//                    R.id.ordersFragment -> "My Dashboard"
 //
 //                    else -> "Ecommerce App"
 //
@@ -73,8 +74,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (i == 0){
+        if (i == 0) {
             finish()
+        }
+    }
+
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@MainActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
         }
     }
 

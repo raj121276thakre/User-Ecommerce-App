@@ -2,12 +2,14 @@ package com.app.userecommerce.fragment
 
 import android.content.Intent
 import android.os.Binder
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.app.userecommerce.MainActivity
 import com.app.userecommerce.R
 import com.app.userecommerce.activity.AddressActivity
@@ -26,6 +28,7 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(layoutInflater)
+        setStatusBarColor()
         // Inflate the layout for this fragment
 
         val preference =
@@ -79,6 +82,18 @@ class CartFragment : Fragment() {
         }
 
 
+    }
+
+
+    //statusbar color
+    private fun setStatusBarColor() {
+        activity?.window?.apply {
+            val statusBarColors = ContextCompat.getColor(requireContext(), R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
 

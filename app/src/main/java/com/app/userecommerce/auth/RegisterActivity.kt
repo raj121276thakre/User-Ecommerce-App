@@ -1,9 +1,11 @@
 package com.app.userecommerce.auth
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.app.userecommerce.R
@@ -20,6 +22,8 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setStatusBarColor()
 
         binding.gotoLoginBtn.setOnClickListener {
             openLogin()
@@ -78,6 +82,15 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
-
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@RegisterActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+    }
 
 }

@@ -1,8 +1,11 @@
 package com.app.userecommerce.auth
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.app.userecommerce.MainActivity
 import com.app.userecommerce.R
 import com.app.userecommerce.Utils
@@ -20,6 +23,8 @@ class OTPActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setStatusBarColor()
 
         Utils.getCorrectOTPSize(this@OTPActivity, binding.userOTP, binding.verifyOtpBtn)
 
@@ -64,6 +69,18 @@ class OTPActivity : AppCompatActivity() {
                     Utils.showToast(this, "Something went wrong")
                 }
             }
+    }
+
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@OTPActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
 

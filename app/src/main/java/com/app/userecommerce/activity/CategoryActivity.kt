@@ -1,7 +1,10 @@
 package com.app.userecommerce.activity
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.app.userecommerce.R
 import com.app.userecommerce.Utils
@@ -15,6 +18,8 @@ class CategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
+
+        setStatusBarColor()
 
 
         getCategoryProducts(intent.getStringExtra("cat"))
@@ -37,4 +42,18 @@ class CategoryActivity : AppCompatActivity() {
                 Utils.showToast(this, "Something went wrong")
             }
     }
+
+
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@CategoryActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+    }
+
 }

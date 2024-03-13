@@ -1,10 +1,14 @@
 package com.app.userecommerce.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.app.userecommerce.MainActivity
+import com.app.userecommerce.R
 import com.app.userecommerce.Utils
 import com.app.userecommerce.databinding.ActivityProductDetailsBinding
 import com.app.userecommerce.roomdb.AppDatabase
@@ -24,6 +28,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setStatusBarColor() // set status bar color
 
         getProductDetails(intent.getStringExtra("id"))
 
@@ -114,6 +120,18 @@ class ProductDetailsActivity : AppCompatActivity() {
         finish()
 
     }
+
+//set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@ProductDetailsActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+    }
+
 
 
 }

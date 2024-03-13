@@ -2,8 +2,11 @@ package com.app.userecommerce.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.app.userecommerce.R
 import com.app.userecommerce.Utils
 import com.app.userecommerce.databinding.ActivityAddressBinding
@@ -19,6 +22,8 @@ class AddressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setStatusBarColor()
 
         preferences = this.getSharedPreferences("user", MODE_PRIVATE) //
 
@@ -116,6 +121,17 @@ class AddressActivity : AppCompatActivity() {
             }
     }
 
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@AddressActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+    }
 
 }
 

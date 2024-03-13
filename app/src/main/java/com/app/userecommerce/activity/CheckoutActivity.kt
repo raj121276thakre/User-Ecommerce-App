@@ -1,16 +1,16 @@
 package com.app.userecommerce.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.app.userecommerce.MainActivity
 import com.app.userecommerce.R
 import com.app.userecommerce.Utils
-import com.app.userecommerce.databinding.ActivityAddressBinding
 import com.app.userecommerce.databinding.ActivityCheckoutBinding
-import com.app.userecommerce.fragment.MoreFragment
 import com.app.userecommerce.roomdb.AppDatabase
 import com.app.userecommerce.roomdb.ProductModel
 import com.google.firebase.Firebase
@@ -30,11 +30,12 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
         binding = ActivityCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setStatusBarColor()
+
         val checkout = Checkout()
         checkout.setKeyID(getString(R.string.razorpay_Api_key));
-// <----------- set your razorpay key id here ---------------------->  //
-        //checkout.setKeyID("<YOUR_KEY_ID>");
 
+        //checkout.setKeyID("<YOUR_KEY_ID>");
 
         val price = intent.getStringExtra("totalCost")
 
@@ -138,6 +139,19 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Utils.showToast(this@CheckoutActivity, "Payment error")
+    }
+
+
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@CheckoutActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
 

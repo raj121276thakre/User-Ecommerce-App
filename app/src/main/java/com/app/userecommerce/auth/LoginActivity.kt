@@ -2,8 +2,12 @@ package com.app.userecommerce.auth
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.app.userecommerce.R
 import com.app.userecommerce.Utils
 import com.app.userecommerce.databinding.ActivityLoginBinding
 import com.google.firebase.Firebase
@@ -23,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setStatusBarColor()
 
         preferences = this.getSharedPreferences("users", MODE_PRIVATE) //
         loadUserNumber()
@@ -112,6 +118,18 @@ class LoginActivity : AppCompatActivity() {
 
                 Utils.showToast(this@LoginActivity, "Something went wrong")
             }
+    }
+
+
+    //set status bar color of activity
+    private fun setStatusBarColor() {
+        window?.apply {
+            val statusBarColors = ContextCompat.getColor(this@LoginActivity, R.color.yellow)
+            statusBarColor = statusBarColors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
 

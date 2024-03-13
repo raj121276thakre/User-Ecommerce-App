@@ -21,6 +21,8 @@ object Utils {
 
 
 
+
+
     private var dialog: AlertDialog? = null
     fun showDialog(context: Context, message: String) {
         val progress = ProgressDialogBinding.inflate(LayoutInflater.from(context))
@@ -78,7 +80,6 @@ object Utils {
         })
 
     }
-
 
 
     fun getCorrectOTPSize(
