@@ -10,6 +10,7 @@ import com.app.userecommerce.R
 import com.app.userecommerce.Utils
 import com.app.userecommerce.databinding.ActivityAddressBinding
 import com.app.userecommerce.databinding.ActivityCheckoutBinding
+import com.app.userecommerce.fragment.MoreFragment
 import com.app.userecommerce.roomdb.AppDatabase
 import com.app.userecommerce.roomdb.ProductModel
 import com.google.firebase.Firebase
@@ -39,28 +40,28 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         try {
             val options = JSONObject()
-            options.put("name",getString(R.string.app_name))
-            options.put("description",getString(R.string.razorpay_Description))
+            options.put("name", getString(R.string.app_name))
+            options.put("description", getString(R.string.razorpay_Description))
             //You can omit the image option to fetch the image from the dashboard
-            options.put("image",getString(R.string.razorpay_App_image))
+            options.put("image", getString(R.string.razorpay_App_image))
             options.put("theme.color", getString(R.string.razorpay_color));
-            options.put("currency","INR");
-            options.put("amount",(price!!.toInt()*100))//pass amount in currency subunits
+            options.put("currency", "INR");
+            options.put("amount", (price!!.toInt() * 100))//pass amount in currency subunits
 
             val prefill = JSONObject()
-            prefill.put("email",getString(R.string.razorpay_Email_id))
-            prefill.put("contact",getString(R.string.razorpay_Contact_number))
+            prefill.put("email", getString(R.string.razorpay_Email_id))
+            prefill.put("contact", getString(R.string.razorpay_Contact_number))
 
 //            val retryObj =  JSONObject();
 //            retryObj.put("enabled", true);
 //            retryObj.put("max_count", 4);
 //            options.put("retry", retryObj);
 
-            options.put("prefill",prefill)
+            options.put("prefill", prefill)
 
-            checkout.open(this,options)
-        }catch (e: Exception){
-            Utils.showToast(this@CheckoutActivity,"Something went wrong")
+            checkout.open(this, options)
+        } catch (e: Exception) {
+            Utils.showToast(this@CheckoutActivity, "Something went wrong")
             e.printStackTrace()
         }
 
@@ -68,14 +69,14 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        Utils.showToast(this@CheckoutActivity,"Payment successful")
+        Utils.showToast(this@CheckoutActivity, "Payment successful")
         uploadData()
     }
 
     private fun uploadData() {
-        Utils.showDialog(this,"Placing your orders...")
+        Utils.showDialog(this, "Placing your orders...")
         val id = intent.getStringArrayListExtra("productIds")
-        for (currentId in id!!){
+        for (currentId in id!!) {
             fetchData(currentId)
         }
     }
@@ -89,15 +90,15 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             .addOnSuccessListener {
 
                 lifecycleScope.launch(Dispatchers.IO) {
-                    dao.deleteProduct(ProductModel(productId,"","",""))
+                    dao.deleteProduct(ProductModel(productId, "", "", ""))
                 }
 
 
-                saveData(it.getString("productName"),it.getString("productSp"),productId)
+                saveData(it.getString("productName"), it.getString("productSp"), productId)
 
             }.addOnFailureListener {
                 Utils.hideDialog()
-                Utils.showToast(this@CheckoutActivity,"Something went wrong")
+                Utils.showToast(this@CheckoutActivity, "Something went wrong")
             }
 
     }
@@ -105,36 +106,38 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
     private fun saveData(name: String?, price: String?, productId: String) {
 
 
-        val  preferences = this.getSharedPreferences("user", MODE_PRIVATE) //
+        val preferences = this.getSharedPreferences("user", MODE_PRIVATE) //
         val data = hashMapOf<String, Any>()
         data["name"] = name!!
         data["price"] = price!!
         data["productId"] = productId!!
-        data["userId"] = preferences.getString("number","")!!
+        data["userId"] = preferences.getString("number", "")!!
         data["status"] = "Ordered"
 
         val firestore = Firebase.firestore.collection("allOrders")
         val key = firestore.document().id
         data["orderId"] = key
 
-        firestore.add(data).addOnSuccessListener {
+        firestore.document(key).set(data).addOnSuccessListener {
             Utils.hideDialog()
-            Utils.showToast(this@CheckoutActivity,"Ordered placed")
+            Utils.showToast(this@CheckoutActivity, "Ordered placed")
             //goto mainActivity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
 
+
+
         }
             .addOnFailureListener {
                 Utils.hideDialog()
-                Utils.showToast(this@CheckoutActivity,"Something went wrong")
-        }
+                Utils.showToast(this@CheckoutActivity, "Something went wrong")
+            }
 
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
-        Utils.showToast(this@CheckoutActivity,"Payment error")
+        Utils.showToast(this@CheckoutActivity, "Payment error")
     }
 
 

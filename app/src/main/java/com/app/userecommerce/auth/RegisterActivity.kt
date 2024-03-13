@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
         var userName = binding.userName.text.toString()
         var userNumber = binding.userNumber.text.toString()
 
-        val preferences = this.getSharedPreferences("user", MODE_PRIVATE)//user
+        val preferences = this.getSharedPreferences("users", MODE_PRIVATE)//user
         val editor = preferences.edit()
         editor.putString("name", userName)
         editor.putString("number", userNumber)
@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val data = UserModel(userName = userName, userPhoneNumber = userNumber)
 
-        Firebase.firestore.collection("user").document(binding.userNumber.text.toString())
+        Firebase.firestore.collection("users").document(binding.userNumber.text.toString())
             .set(data)
             .addOnSuccessListener {
                 Utils.hideDialog()

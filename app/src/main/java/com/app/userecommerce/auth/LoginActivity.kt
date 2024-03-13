@@ -1,28 +1,31 @@
 package com.app.userecommerce.auth
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.app.userecommerce.Utils
 import com.app.userecommerce.databinding.ActivityLoginBinding
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.firestore.firestore
 import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
-    //private lateinit var preferences: SharedPreferences //
+    private lateinit var preferences: SharedPreferences //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //preferences = this.getSharedPreferences("user", MODE_PRIVATE) //
-        //loadUserNumber()
+        preferences = this.getSharedPreferences("users", MODE_PRIVATE) //
+        loadUserNumber()
 
         binding.gotoSignUpBtn.setOnClickListener {
             openSignup() // opening signup Activity
@@ -96,20 +99,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-//    private fun loadUserNumber() {
-//
-//
-//        Firebase.firestore.collection("user")
-//            .document(preferences.getString("number", "9786567545")!!)
-//            .get().addOnSuccessListener {
-//
-//                binding.etUserNumber.setText(it.getString("userPhoneNumber"))
-//
-//            }.addOnFailureListener {
-//
-//                Utils.showToast(this@LoginActivity, "Something went wrong")
-//            }
-//    }
+    private fun loadUserNumber() {
+
+
+        Firebase.firestore.collection("users")
+            .document(preferences.getString("number", "9786567545")!!)
+            .get().addOnSuccessListener {
+
+                binding.etUserNumber.setText(it.getString("userPhoneNumber"))
+
+            }.addOnFailureListener {
+
+                Utils.showToast(this@LoginActivity, "Something went wrong")
+            }
+    }
 
 
 }
