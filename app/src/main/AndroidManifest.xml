@@ -15,6 +15,9 @@
         android:theme="@style/Theme.UserEcommerce"
         tools:targetApi="31">
         <activity
+            android:name=".activity.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".auth.OTPActivity"
             android:exported="false" />
         <activity

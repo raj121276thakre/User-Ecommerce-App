@@ -37,7 +37,7 @@
             android:drawableStart="@drawable/profile_name_24"
             android:drawablePadding="9.10dp"
             android:hint="Enter Name"
-            android:inputType="number" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

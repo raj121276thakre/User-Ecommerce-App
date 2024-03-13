@@ -21,7 +21,8 @@ class OTPActivity : AppCompatActivity() {
         binding = ActivityOtpactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Utils.getCorrectOTPSize(this@OTPActivity,binding.userOTP,binding.verifyOtpBtn)
+        Utils.getCorrectOTPSize(this@OTPActivity, binding.userOTP, binding.verifyOtpBtn)
+
         binding.verifyOtpBtn.setOnClickListener {
             if (binding.userOTP.text!!.isEmpty()) {
                 Utils.showToast(this, "Please enter otp")
@@ -34,7 +35,9 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun verifyUser(otp: String) {
-        val credential = PhoneAuthProvider.getCredential(intent.getStringExtra("verificationId")!!, otp)
+        Utils.showDialog(this@OTPActivity, "Verifying please wait")
+        val credential =
+            PhoneAuthProvider.getCredential(intent.getStringExtra("verificationId")!!, otp)
         signInWithPhoneAuthCredential(credential)
     }
 
@@ -42,11 +45,21 @@ class OTPActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Utils.hideDialog()
+
+                    var userNumber = intent.getStringExtra("number")!!
+
+                    val preferences = this.getSharedPreferences("user", MODE_PRIVATE)
+                    val editor = preferences.edit()
+                    editor.putString("number", userNumber)
+                    editor.apply()
+
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
 
 
                 } else {
+                    Utils.hideDialog()
 
                     Utils.showToast(this, "Something went wrong")
                 }

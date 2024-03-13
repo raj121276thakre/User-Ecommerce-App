@@ -26,6 +26,7 @@ class CartFragment : Fragment() {
     ): View? {
         binding = FragmentCartBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+
         val preference =
             requireContext().getSharedPreferences("info", AppCompatActivity.MODE_PRIVATE)
         val editor = preference.edit()

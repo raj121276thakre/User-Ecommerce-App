@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userOTP"
-            android:drawableStart="@drawable/baseline_local_phone_24"
+            android:drawableStart="@drawable/baseline_otp_123"
             android:drawablePadding="9.10dp"
             android:hint="Enter OTP"
             android:inputType="number"
