@@ -14,12 +14,15 @@ class AddressActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddressBinding
 
     private lateinit var  preferences : SharedPreferences //
+    private lateinit var  totalCost : String //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         preferences = this.getSharedPreferences("user", MODE_PRIVATE) //
+
+        totalCost = intent.getStringExtra("totalCost")!!
 
         loadUserInfo()
 
@@ -75,8 +78,16 @@ class AddressActivity : AppCompatActivity() {
             .update(map)
             .addOnSuccessListener {
                 Utils.hideDialog()
-                Utils.showToast(this@AddressActivity, "Address saved")
-               startActivity( Intent(this@AddressActivity, CheckoutActivity::class.java))
+               // Utils.showToast(this@AddressActivity, "Address saved")
+
+                //goto checkoutActivity
+                val bundle = Bundle()
+                bundle.putStringArrayList("productIds",intent.getStringArrayListExtra("productIds"))
+                bundle.putString("totalCost",totalCost)
+
+                val intent = Intent(this, CheckoutActivity::class.java)
+                intent.putExtras(bundle)
+               startActivity(intent)
 
             }.addOnFailureListener {
                 Utils.hideDialog()

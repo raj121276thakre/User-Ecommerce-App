@@ -20,6 +20,7 @@ import com.app.userecommerce.roomdb.ProductModel
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
+    private lateinit var list : ArrayList<String>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,9 +36,15 @@ class CartFragment : Fragment() {
 
         val dao = AppDatabase.getInstance(requireContext()).productDao()
 
+        list = ArrayList()
+
         dao.getAllProducts().observe(requireActivity()) {
             binding.cartRecycler.adapter = CartAdapter(requireContext(), it)
 
+            list.clear()
+            for (data in it ){
+                list.add(data.productId)
+            }
             toatalCost(it)
         }
 
@@ -51,7 +58,7 @@ class CartFragment : Fragment() {
         for (item in data!!) {
             // Remove currency symbol before parsing to integer
             val priceWithoutCurrency = item.productSp?.replace("₹", "")
-            total += priceWithoutCurrency?.toIntOrNull() ?: 0
+            total += priceWithoutCurrency?.toIntOrNull() ?: 0       //
             //total += item.productSp!!.toInt()
         }
 
@@ -60,7 +67,14 @@ class CartFragment : Fragment() {
 
         binding.btnCheckOut.setOnClickListener {
             val intent = Intent(context, AddressActivity::class.java)
-            intent.putExtra("totalCost",total)
+            val bundle = Bundle()
+            bundle.putStringArrayList("productIds",list)
+            bundle.putString("totalCost",total.toString())
+            intent.putExtras(bundle)
+
+//            intent.putExtra("totalCost",total)
+//            intent.putExtra("productIds",list)
+
             startActivity(intent)
         }
 

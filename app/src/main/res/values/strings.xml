@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">User Ecommerce</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Razorpay  -->
+    <string name="razorpay_Api_key">rzp_test_P15yJgUavQus6X</string>
+    <string name="razorpay_App_image">"https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg"</string>
+    <string name="razorpay_color">"#ffbe0b"</string>
+    <string name="razorpay_Email_id">"raj121276thakre@gmail.com"</string>
+    <string name="razorpay_Contact_number">"9922888374"</string>
+    <string name="razorpay_Description">"Best Ecommerce app"</string>
+
+
+
+
 </resources>

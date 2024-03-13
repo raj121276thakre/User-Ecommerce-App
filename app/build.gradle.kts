@@ -91,6 +91,10 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1-Beta")
+
+    //Razorpay payment
+    implementation ("com.razorpay:checkout:1.6.33")
+
 }
 
 
