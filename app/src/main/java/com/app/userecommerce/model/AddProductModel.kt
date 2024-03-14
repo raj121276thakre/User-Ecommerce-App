@@ -8,5 +8,8 @@ data class AddProductModel(
     val productId : String? = "",
     val productMrp : String? = "",
     val productSp : String? = "",
-    val productImages : ArrayList<String> = ArrayList()
+    val productImages : ArrayList<String> = ArrayList(),
+
+    val productQuantity : String? = "",
+    val productDiscount : String? = "",
 )

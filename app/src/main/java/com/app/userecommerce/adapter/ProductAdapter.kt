@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.userecommerce.Utils
 import com.app.userecommerce.activity.ProductDetailsActivity
 import com.app.userecommerce.databinding.LayoutProductItemBinding
 import com.app.userecommerce.model.AddProductModel
@@ -29,12 +30,29 @@ class ProductAdapter(var context: Context, val list: ArrayList<AddProductModel> 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val data  = list[position]
 
+        val productMrp = data.productMrp
+        // Format the product MRP with a strikethrough using HTML
+        val formattedProductMrp = Utils.applyStrikethrough("₹$productMrp")
+
+
+
         Glide.with(context).load(data.productCoverImg).into(holder.binding.productCoverImage)
         holder.binding.productName.text = data.productName
         holder.binding.productCategory.text = data.productCategory
-        holder.binding.productMrp.text = "₹" + data.productMrp
+        holder.binding.productMrp.text = formattedProductMrp
+        holder.binding.productSp.text = "₹" + data.productSp
 
-        holder.binding.btnProductSp.text = "₹" + data.productSp
+        holder.binding.tvProductDiscount.text = data.productDiscount
+
+        holder.binding.btnAddToCart.setOnClickListener {
+            // add to cart button
+        }
+        holder.binding.btnBuyNow.setOnClickListener {
+            // buy now button
+        }
+
+      //  holder.binding.btnProductSp.text = "₹" + data.productSp
+
 
 
 

@@ -16,6 +16,8 @@ import com.app.userecommerce.databinding.ProgressDialogBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import android.text.Html
+import androidx.annotation.RequiresApi
 
 object Utils {
 
@@ -121,6 +123,18 @@ object Utils {
 
         })
 
+    }
+
+
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun applyStrikethrough(text: String): CharSequence {
+        return Html.fromHtml("<strike>$text</strike>", Html.FROM_HTML_MODE_LEGACY)
+    }
+
+    @Suppress("DEPRECATION")
+    fun applyStrikethroughCompat(text: String): CharSequence {
+        return Html.fromHtml("<strike>$text</strike>")
     }
 
 }

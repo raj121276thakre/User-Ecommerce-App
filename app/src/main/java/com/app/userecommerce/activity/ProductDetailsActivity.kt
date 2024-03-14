@@ -1,8 +1,12 @@
 package com.app.userecommerce.activity
 
 import android.content.Intent
+import android.text.Html
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -44,9 +48,22 @@ class ProductDetailsActivity : AppCompatActivity() {
                 val name =  it.getString("productName")
                 val productSp =  "₹" + it.getString("productSp")
                 val prodDescription = it.getString("productDescription")
+
+                val productQuantity = it.getString("productQuantity")
+                val productDiscount = it.getString("productDiscount")
+                val productMrp = it.getString("productMrp")
+
+                // Format the product MRP with a strikethrough using HTML
+                val formattedProductMrp = Utils.applyStrikethrough("₹$productMrp")
+
                 binding.tvProductName.text = name
                 binding.tvProductSp.text = productSp
                 binding.tvProductDescription.text = prodDescription
+
+                binding.tvQuantity.text = productQuantity
+                binding.tvProductDiscount.text = productDiscount
+                binding.tvProductMrp.text = formattedProductMrp
+
 
                 val slideList = ArrayList<SlideModel>()
                 for (data in list) {
